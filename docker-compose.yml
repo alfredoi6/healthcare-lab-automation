@@ -1,0 +1,16 @@
+services:
+  minio:
+    image:  minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports:
+      - "9000:9000"  # Expose API port
+      - "9001:9001"  # Expose console UI port
+    command: server /data --console-address ":9001"  # Run MinIO server with console address
+    volumes:
+      - minio_data:/data  # Persist MinIO data in a Docker volume
+
+volumes:
+  minio_data:  # Docker volume to persist MinIO data
